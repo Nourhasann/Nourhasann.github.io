@@ -1,19 +1,27 @@
+Yes — replace your **entire current `style.css`** with this one. It keeps the same portfolio structure but makes the theme **dark, deep-purple, and more premium**, with purple glow effects throughout.
+
 ```css
 :root {
-    --bg: #07070a;
-    --bg-secondary: #0d0d12;
-    --card: rgba(255,255,255,0.045);
-    --border: rgba(255,255,255,0.09);
+    --bg: #05030a;
+    --bg-secondary: #0b0614;
+    --bg-card: rgba(126, 34, 206, 0.055);
 
-    --text: #f5f5f7;
-    --muted: #9696a5;
+    --text: #faf7ff;
+    --muted: #aaa0ba;
 
     --purple: #8b5cf6;
-    --cyan: #06b6d4;
+    --purple-light: #c084fc;
+    --purple-bright: #a855f7;
+    --purple-dark: #5b21b6;
 
-    --glow: rgba(139,92,246,0.22);
+    --border: rgba(168, 85, 247, 0.18);
+    --border-hover: rgba(168, 85, 247, 0.45);
+
+    --glow: rgba(139, 92, 246, 0.28);
 }
 
+
+/* ================= RESET ================= */
 
 * {
     margin: 0;
@@ -21,35 +29,37 @@
     box-sizing: border-box;
 }
 
-
 html {
     scroll-behavior: smooth;
 }
 
-
 body {
     font-family: "Inter", sans-serif;
-
     color: var(--text);
 
     background:
         radial-gradient(
-            circle at 80% 5%,
-            rgba(139,92,246,0.13),
-            transparent 28%
+            circle at 85% 5%,
+            rgba(139, 92, 246, 0.18),
+            transparent 27%
         ),
-
         radial-gradient(
-            circle at 5% 70%,
-            rgba(6,182,212,0.07),
+            circle at 5% 45%,
+            rgba(109, 40, 217, 0.10),
             transparent 25%
         ),
-
+        radial-gradient(
+            circle at 70% 80%,
+            rgba(168, 85, 247, 0.07),
+            transparent 25%
+        ),
         var(--bg);
 
     overflow-x: hidden;
 }
 
+
+/* Subtle grid background */
 
 body::before {
     content: "";
@@ -62,12 +72,12 @@ body::before {
 
     background-image:
         linear-gradient(
-            rgba(255,255,255,0.018) 1px,
+            rgba(168, 85, 247, 0.025) 1px,
             transparent 1px
         ),
         linear-gradient(
             90deg,
-            rgba(255,255,255,0.018) 1px,
+            rgba(168, 85, 247, 0.025) 1px,
             transparent 1px
         );
 
@@ -84,15 +94,13 @@ body::before {
 
 
 a {
-    text-decoration: none;
     color: inherit;
+    text-decoration: none;
 }
-
 
 button {
     font-family: inherit;
 }
-
 
 .container {
     width: min(1120px, 90%);
@@ -112,20 +120,22 @@ nav {
 
     z-index: 1000;
 
+    background: rgba(5, 3, 10, 0.60);
+
+    backdrop-filter: blur(18px);
+
     border-bottom: 1px solid transparent;
 
-    transition: 0.3s;
-
-    background: rgba(7,7,10,0.55);
-
-    backdrop-filter: blur(16px);
+    transition: 0.3s ease;
 }
 
-
 nav.scrolled {
-    background: rgba(7,7,10,0.88);
+    background: rgba(5, 3, 10, 0.92);
 
     border-bottom-color: var(--border);
+
+    box-shadow:
+        0 10px 40px rgba(0, 0, 0, 0.25);
 }
 
 
@@ -141,7 +151,7 @@ nav.scrolled {
 
 
 .logo {
-    font-family: "Space Grotesk";
+    font-family: "Space Grotesk", sans-serif;
 
     font-size: 23px;
 
@@ -152,12 +162,17 @@ nav.scrolled {
 
 
 .logo span {
-    color: var(--purple);
+    color: var(--purple-light);
+
+    text-shadow:
+        0 0 20px rgba(192, 132, 252, 0.7);
 }
 
 
 .nav-links {
     display: flex;
+
+    align-items: center;
 
     gap: 30px;
 
@@ -166,16 +181,43 @@ nav.scrolled {
 
 
 .nav-links a {
+    position: relative;
+
     color: var(--muted);
 
     font-size: 13px;
 
-    transition: 0.3s;
+    transition: 0.3s ease;
+}
+
+
+.nav-links a::after {
+    content: "";
+
+    position: absolute;
+
+    left: 0;
+    bottom: -7px;
+
+    width: 0;
+    height: 1px;
+
+    background: var(--purple-light);
+
+    box-shadow:
+        0 0 8px var(--purple);
+    
+    transition: 0.3s ease;
 }
 
 
 .nav-links a:hover {
     color: white;
+}
+
+
+.nav-links a:hover::after {
+    width: 100%;
 }
 
 
@@ -204,6 +246,29 @@ nav.scrolled {
     align-items: center;
 
     padding-top: 80px;
+
+    position: relative;
+}
+
+
+.hero::after {
+    content: "";
+
+    position: absolute;
+
+    width: 500px;
+    height: 500px;
+
+    border-radius: 50%;
+
+    background: rgba(139, 92, 246, 0.08);
+
+    filter: blur(130px);
+
+    right: -200px;
+    top: 20%;
+
+    pointer-events: none;
 }
 
 
@@ -231,13 +296,16 @@ nav.scrolled {
 
     border: 1px solid var(--border);
 
-    background: rgba(255,255,255,0.035);
+    background: rgba(139, 92, 246, 0.045);
 
-    color: #bdbdc8;
+    color: #c8bfd5;
 
     font-size: 12px;
 
     margin-bottom: 25px;
+
+    box-shadow:
+        inset 0 0 20px rgba(139, 92, 246, 0.025);
 }
 
 
@@ -247,14 +315,16 @@ nav.scrolled {
 
     border-radius: 50%;
 
-    background: #22c55e;
+    background: #a855f7;
 
-    box-shadow: 0 0 12px #22c55e;
+    box-shadow:
+        0 0 8px #a855f7,
+        0 0 16px rgba(168, 85, 247, 0.5);
 }
 
 
 .small-title {
-    color: var(--cyan);
+    color: var(--purple-light);
 
     font-size: 11px;
 
@@ -267,7 +337,7 @@ nav.scrolled {
 
 
 .hero h1 {
-    font-family: "Space Grotesk";
+    font-family: "Space Grotesk", sans-serif;
 
     font-size: clamp(52px, 7vw, 78px);
 
@@ -283,22 +353,29 @@ nav.scrolled {
     background:
         linear-gradient(
             90deg,
-            #a78bfa,
-            #22d3ee
+            #e9d5ff,
+            #c084fc,
+            #8b5cf6,
+            #7c3aed
         );
 
     -webkit-background-clip: text;
 
     -webkit-text-fill-color: transparent;
+
+    filter:
+        drop-shadow(
+            0 0 25px rgba(139, 92, 246, 0.15)
+        );
 }
 
 
 .hero h2 {
-    font-family: "Space Grotesk";
+    font-family: "Space Grotesk", sans-serif;
 
     font-size: clamp(25px, 3vw, 36px);
 
-    color: #d6d6df;
+    color: #d5cedf;
 
     letter-spacing: -1.5px;
 
@@ -348,14 +425,22 @@ nav.scrolled {
 
     border: 1px solid var(--border);
 
-    transition: 0.3s;
+    transition: 0.3s ease;
 }
 
 
 .btn-primary {
-    color: #09090b;
+    color: #09050f;
 
-    background: white;
+    background:
+        linear-gradient(
+            135deg,
+            #ffffff,
+            #e9d5ff
+        );
+
+    box-shadow:
+        0 0 0 rgba(139, 92, 246, 0);
 }
 
 
@@ -363,14 +448,14 @@ nav.scrolled {
     transform: translateY(-3px);
 
     box-shadow:
-        0 15px 40px rgba(255,255,255,0.1);
+        0 15px 40px rgba(139, 92, 246, 0.25);
 }
 
 
 .btn-secondary {
-    color: #c5c5ce;
+    color: #c9c1d5;
 
-    background: rgba(255,255,255,0.035);
+    background: rgba(139, 92, 246, 0.04);
 }
 
 
@@ -379,11 +464,16 @@ nav.scrolled {
 
     border-color: var(--purple);
 
+    background: rgba(139, 92, 246, 0.09);
+
     transform: translateY(-3px);
+
+    box-shadow:
+        0 10px 30px rgba(139, 92, 246, 0.10);
 }
 
 
-/* ================= HERO VISUAL ================= */
+/* ================= HERO TERMINAL ================= */
 
 .hero-visual {
     position: relative;
@@ -407,13 +497,32 @@ nav.scrolled {
     background:
         linear-gradient(
             135deg,
-            var(--purple),
-            var(--cyan)
+            #7c3aed,
+            #a855f7
         );
 
-    filter: blur(90px);
+    filter: blur(100px);
 
-    opacity: 0.25;
+    opacity: 0.28;
+
+    animation: pulseGlow 5s ease-in-out infinite;
+}
+
+
+@keyframes pulseGlow {
+
+    0%,
+    100% {
+        transform: scale(0.95);
+
+        opacity: 0.22;
+    }
+
+    50% {
+        transform: scale(1.08);
+
+        opacity: 0.34;
+    }
 }
 
 
@@ -428,23 +537,81 @@ nav.scrolled {
 
     border-radius: 22px;
 
-    border: 1px solid var(--border);
+    border: 1px solid rgba(168, 85, 247, 0.22);
 
     background:
         linear-gradient(
             145deg,
-            rgba(139,92,246,0.12),
-            rgba(6,182,212,0.035)
+            rgba(139, 92, 246, 0.12),
+            rgba(88, 28, 135, 0.055)
         ),
 
-        rgba(255,255,255,0.035);
+        rgba(255, 255, 255, 0.025);
 
-    backdrop-filter: blur(18px);
+    backdrop-filter: blur(20px);
 
     overflow: hidden;
 
     box-shadow:
-        0 30px 80px rgba(0,0,0,0.35);
+        0 30px 80px rgba(0, 0, 0, 0.45),
+        0 0 70px rgba(139, 92, 246, 0.08);
+
+    animation: floatingCard 6s ease-in-out infinite;
+}
+
+
+@keyframes floatingCard {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-8px);
+    }
+}
+
+
+.visual-card::before {
+    content: "";
+
+    position: absolute;
+
+    width: 200px;
+    height: 200px;
+
+    border-radius: 50%;
+
+    background: var(--purple);
+
+    filter: blur(100px);
+
+    opacity: 0.08;
+
+    right: -80px;
+    top: -80px;
+}
+
+
+.visual-card::after {
+    content: "";
+
+    position: absolute;
+
+    width: 150px;
+    height: 150px;
+
+    border-radius: 50%;
+
+    background: #6d28d9;
+
+    filter: blur(90px);
+
+    opacity: 0.07;
+
+    left: -70px;
+    bottom: -70px;
 }
 
 
@@ -460,6 +627,8 @@ nav.scrolled {
     padding-left: 17px;
 
     border-bottom: 1px solid var(--border);
+
+    background: rgba(0, 0, 0, 0.15);
 }
 
 
@@ -469,7 +638,15 @@ nav.scrolled {
 
     border-radius: 50%;
 
-    background: #555;
+    background: #4c4455;
+}
+
+
+.terminal-top span:first-child {
+    background: #8b5cf6;
+
+    box-shadow:
+        0 0 8px rgba(139, 92, 246, 0.5);
 }
 
 
@@ -481,6 +658,10 @@ nav.scrolled {
     font-size: 13px;
 
     line-height: 2;
+
+    position: relative;
+
+    z-index: 2;
 }
 
 
@@ -490,22 +671,22 @@ nav.scrolled {
 
 
 .code-green {
-    color: #86efac;
+    color: #d8b4fe;
 }
 
 
 .code-orange {
-    color: #fdba74;
+    color: #a78bfa;
 }
 
 
 .code-blue {
-    color: #67e8f9;
+    color: #e9d5ff;
 }
 
 
 .output {
-    color: #a1a1aa;
+    color: #8f859e;
 
     margin-top: 8px;
 }
@@ -526,7 +707,7 @@ section {
 .section-heading > span {
     display: block;
 
-    color: var(--cyan);
+    color: var(--purple-light);
 
     font-size: 11px;
 
@@ -539,7 +720,7 @@ section {
 
 
 .section-heading h2 {
-    font-family: "Space Grotesk";
+    font-family: "Space Grotesk", sans-serif;
 
     font-size: clamp(36px, 5vw, 55px);
 
@@ -577,9 +758,31 @@ section {
 .about-stats {
     border: 1px solid var(--border);
 
-    background: var(--card);
+    background:
+        linear-gradient(
+            145deg,
+            rgba(139, 92, 246, 0.055),
+            rgba(255, 255, 255, 0.018)
+        );
 
     border-radius: 20px;
+
+    box-shadow:
+        inset 0 0 40px rgba(139, 92, 246, 0.018);
+
+    transition: 0.35s ease;
+}
+
+
+.about-card:hover,
+.about-stats:hover {
+    border-color: var(--border-hover);
+
+    transform: translateY(-5px);
+
+    box-shadow:
+        0 25px 70px rgba(0, 0, 0, 0.25),
+        0 0 35px rgba(139, 92, 246, 0.06);
 }
 
 
@@ -589,7 +792,7 @@ section {
 
 
 .about-card p {
-    color: #b6b6c1;
+    color: #b9b0c6;
 
     font-size: 14px;
 
@@ -622,22 +825,36 @@ section {
 
     border-radius: 13px;
 
-    background: rgba(255,255,255,0.025);
+    background:
+        rgba(139, 92, 246, 0.035);
+
+    transition: 0.3s ease;
+}
+
+
+.stat-card:hover {
+    border-color: rgba(168, 85, 247, 0.35);
+
+    background:
+        rgba(139, 92, 246, 0.08);
+
+    transform: translateY(-3px);
 }
 
 
 .stat-card strong {
     display: block;
 
-    font-family: "Space Grotesk";
+    font-family: "Space Grotesk", sans-serif;
 
     font-size: 30px;
 
     background:
         linear-gradient(
             90deg,
-            #a78bfa,
-            #22d3ee
+            #e9d5ff,
+            #c084fc,
+            #8b5cf6
         );
 
     -webkit-background-clip: text;
@@ -673,12 +890,30 @@ section {
 
     border-radius: 18px;
 
-    background: var(--card);
+    background:
+        linear-gradient(
+            145deg,
+            rgba(139, 92, 246, 0.06),
+            rgba(255, 255, 255, 0.018)
+        );
+
+    transition: 0.35s ease;
+}
+
+
+.skill-category:hover {
+    transform: translateY(-6px);
+
+    border-color: var(--border-hover);
+
+    box-shadow:
+        0 20px 60px rgba(0, 0, 0, 0.25),
+        0 0 35px rgba(139, 92, 246, 0.07);
 }
 
 
 .skill-category h3 {
-    font-family: "Space Grotesk";
+    font-family: "Space Grotesk", sans-serif;
 
     font-size: 16px;
 
@@ -702,13 +937,14 @@ section {
 
     border: 1px solid var(--border);
 
-    background: rgba(255,255,255,0.03);
+    background:
+        rgba(139, 92, 246, 0.035);
 
-    color: #bcbcc7;
+    color: #bdb4c8;
 
     font-size: 11px;
 
-    transition: 0.3s;
+    transition: 0.3s ease;
 }
 
 
@@ -717,7 +953,13 @@ section {
 
     border-color: var(--purple);
 
+    background:
+        rgba(139, 92, 246, 0.12);
+
     transform: translateY(-2px);
+
+    box-shadow:
+        0 5px 20px rgba(139, 92, 246, 0.10);
 }
 
 
@@ -743,13 +985,18 @@ section {
 
     border: 1px solid var(--border);
 
-    background: var(--card);
+    background:
+        linear-gradient(
+            145deg,
+            rgba(139, 92, 246, 0.055),
+            rgba(255, 255, 255, 0.018)
+        );
 
     display: flex;
 
     flex-direction: column;
 
-    transition: 0.35s;
+    transition: 0.35s ease;
 
     overflow: hidden;
 }
@@ -760,36 +1007,37 @@ section {
 
     position: absolute;
 
-    width: 180px;
-    height: 180px;
+    width: 190px;
+    height: 190px;
 
     border-radius: 50%;
 
     background: var(--purple);
 
-    filter: blur(90px);
+    filter: blur(100px);
 
     opacity: 0;
 
-    top: -80px;
-    right: -80px;
+    top: -100px;
+    right: -90px;
 
-    transition: 0.4s;
+    transition: 0.4s ease;
 }
 
 
 .project-card:hover {
     transform: translateY(-8px);
 
-    border-color: rgba(139,92,246,0.35);
+    border-color: var(--border-hover);
 
     box-shadow:
-        0 25px 70px rgba(0,0,0,0.3);
+        0 25px 70px rgba(0, 0, 0, 0.35),
+        0 0 45px rgba(139, 92, 246, 0.07);
 }
 
 
 .project-card:hover::before {
-    opacity: 0.12;
+    opacity: 0.16;
 }
 
 
@@ -805,16 +1053,16 @@ section {
 
 
 .project-number {
-    color: #696974;
+    color: #696170;
 
-    font-family: "Space Grotesk";
+    font-family: "Space Grotesk", sans-serif;
 
     font-size: 12px;
 }
 
 
 .project-label {
-    color: var(--cyan);
+    color: var(--purple-light);
 
     font-size: 9px;
 
@@ -836,18 +1084,26 @@ section {
 
     border-radius: 14px;
 
-    background: rgba(139,92,246,0.1);
+    background:
+        linear-gradient(
+            135deg,
+            rgba(139, 92, 246, 0.16),
+            rgba(109, 40, 217, 0.08)
+        );
 
-    border: 1px solid rgba(139,92,246,0.2);
+    border: 1px solid rgba(168, 85, 247, 0.22);
 
     font-size: 22px;
 
     margin-bottom: 20px;
+
+    box-shadow:
+        0 0 25px rgba(139, 92, 246, 0.07);
 }
 
 
 .project-card h3 {
-    font-family: "Space Grotesk";
+    font-family: "Space Grotesk", sans-serif;
 
     font-size: 22px;
 
@@ -880,9 +1136,12 @@ section {
 
     border-radius: 5px;
 
-    background: rgba(255,255,255,0.04);
+    background:
+        rgba(139, 92, 246, 0.06);
 
-    color: #aaaab5;
+    border: 1px solid rgba(168, 85, 247, 0.09);
+
+    color: #aaa1b5;
 
     font-size: 9px;
 }
@@ -900,7 +1159,7 @@ section {
 
 
 .project-links a {
-    color: #c5c5cf;
+    color: #c5bdce;
 
     font-size: 11px;
 
@@ -911,7 +1170,10 @@ section {
 
 
 .project-links a:hover {
-    color: white;
+    color: var(--purple-light);
+
+    text-shadow:
+        0 0 12px rgba(192, 132, 252, 0.35);
 }
 
 
@@ -937,7 +1199,12 @@ section {
 
     width: 1px;
 
-    background: rgba(255,255,255,0.12);
+    background:
+        linear-gradient(
+            to bottom,
+            var(--purple),
+            rgba(139, 92, 246, 0.05)
+        );
 }
 
 
@@ -972,14 +1239,15 @@ section {
     border: 3px solid var(--purple);
 
     box-shadow:
-        0 0 15px rgba(139,92,246,0.55);
+        0 0 12px rgba(139, 92, 246, 0.65),
+        0 0 25px rgba(139, 92, 246, 0.20);
 }
 
 
 .timeline-date {
     display: inline-block;
 
-    color: var(--cyan);
+    color: var(--purple-light);
 
     font-size: 10px;
 
@@ -992,7 +1260,7 @@ section {
 
 
 .timeline-content h3 {
-    font-family: "Space Grotesk";
+    font-family: "Space Grotesk", sans-serif;
 
     font-size: 21px;
 
@@ -1001,7 +1269,7 @@ section {
 
 
 .timeline-content h4 {
-    color: #b8b8c3;
+    color: #b8afc2;
 
     font-size: 12px;
 
@@ -1023,6 +1291,8 @@ section {
 /* ================= CONTACT ================= */
 
 .contact-box {
+    position: relative;
+
     text-align: center;
 
     padding: 80px 30px;
@@ -1034,16 +1304,48 @@ section {
     background:
         radial-gradient(
             circle at center,
-            rgba(139,92,246,0.12),
+            rgba(139, 92, 246, 0.15),
             transparent 60%
         ),
 
-        var(--card);
+        linear-gradient(
+            145deg,
+            rgba(139, 92, 246, 0.06),
+            rgba(255, 255, 255, 0.018)
+        );
+
+    overflow: hidden;
+}
+
+
+.contact-box::before {
+    content: "";
+
+    position: absolute;
+
+    width: 250px;
+    height: 250px;
+
+    border-radius: 50%;
+
+    background: var(--purple);
+
+    filter: blur(120px);
+
+    opacity: 0.08;
+
+    left: 50%;
+
+    top: 50%;
+
+    transform: translate(-50%, -50%);
 }
 
 
 .contact-label {
-    color: var(--cyan);
+    position: relative;
+
+    color: var(--purple-light);
 
     font-size: 10px;
 
@@ -1054,7 +1356,9 @@ section {
 
 
 .contact-box h2 {
-    font-family: "Space Grotesk";
+    position: relative;
+
+    font-family: "Space Grotesk", sans-serif;
 
     font-size: clamp(38px, 6vw, 58px);
 
@@ -1067,6 +1371,8 @@ section {
 
 
 .contact-box p {
+    position: relative;
+
     color: var(--muted);
 
     font-size: 14px;
@@ -1076,6 +1382,8 @@ section {
 
 
 .contact-buttons {
+    position: relative;
+
     display: flex;
 
     justify-content: center;
@@ -1093,13 +1401,14 @@ section {
 
     border: 1px solid var(--border);
 
-    background: rgba(255,255,255,0.035);
+    background:
+        rgba(139, 92, 246, 0.045);
 
-    color: #c6c6cf;
+    color: #c6becf;
 
     font-size: 12px;
 
-    transition: 0.3s;
+    transition: 0.3s ease;
 }
 
 
@@ -1108,7 +1417,13 @@ section {
 
     border-color: var(--purple);
 
+    background:
+        rgba(139, 92, 246, 0.10);
+
     transform: translateY(-3px);
+
+    box-shadow:
+        0 10px 30px rgba(139, 92, 246, 0.12);
 }
 
 
@@ -1121,13 +1436,13 @@ footer {
 
     text-align: center;
 
-    color: #656570;
+    color: #65606c;
 
     font-size: 11px;
 }
 
 
-/* ================= ANIMATIONS ================= */
+/* ================= SCROLL ANIMATION ================= */
 
 .reveal {
     opacity: 0;
@@ -1203,10 +1518,11 @@ footer {
 
         border: 1px solid var(--border);
 
-        background: #101016;
+        background:
+            rgba(12, 7, 20, 0.98);
 
         box-shadow:
-            0 20px 50px rgba(0,0,0,0.4);
+            0 20px 50px rgba(0, 0, 0, 0.5);
     }
 
 
@@ -1274,4 +1590,3 @@ footer {
 
 }
 ```
-
